@@ -216,6 +216,20 @@ class Game {
         if (matches.length) {
             this.onGameOver(matches, color);
         }
+
+        const allTilesOccupied = this.matrix.every(tile => tile !== undefined);
+
+        if (allTilesOccupied && matches.length === 0) {
+            this.onDraw();
+        }
+    }
+
+    onDraw() {
+        setTimeout(() => {
+            alert.style.setProperty("--color", `var(--color-light`);
+            alert.innerHTML = `<div> Игра окончена!<br>Ничья!</div>`;
+            alert.className = "active";
+        }, 100);
     }
 
     onGameOver(data, color) {
@@ -239,7 +253,6 @@ class Game {
             const text = data.map(
                 ({ value }) => cap(rus(value))
             ).join(" / ");
-            console.log(text);
             alert.style.setProperty("--color", `var(--color-${color})`);
             alert.innerHTML = `<div> Игра окончена!<br>${text}</div>`;
             alert.className = "active";
